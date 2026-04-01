@@ -95,7 +95,7 @@ with tab1:
             detail_input = st.text_input(label, value=current_val, key=f"input_{details_key}")
             st.session_state.meal_details[details_key] = detail_input
 
-        st.divider()
+        st.write("---")
 
     st.subheader("Σημειώσεις και Διάθεση")
     mood_key = f"mood_{selected_date}"
@@ -113,7 +113,7 @@ with tab2:
             for meal_time, meal_desc in diet_plan[eng_day].items():
                 st.write(f"{meal_time}: {meal_desc}")
                 
-    st.divider()
+    st.write("---")
     
     st.subheader("Λίστα για Ψώνια")
     st.write("Τσέκαρε όσα χρειάζεται να αγοράσεις:")
@@ -133,8 +133,7 @@ with tab2:
         if key_name not in st.session_state:
             st.session_state[key_name] = False
         
-        is_checked = st.checkbox(item, value=st.session_state[key_name], key=key_name)
-        st.session_state[key_name] = is_checked
+        st.checkbox(item, key=key_name)
 
     st.write("")
     new_item = st.text_input("Πρόσθεσε νέο προϊόν στη λίστα:")
@@ -163,7 +162,7 @@ with tab3:
     if st.button("Αποθήκευση Μετρήσεων"):
         st.success("Οι μετρήσεις αποθηκεύτηκαν.")
 
-    st.divider()
+    st.write("---")
     st.subheader("Αρχείο Εξετάσεων")
     uploaded_file = st.file_uploader("Φόρτωσε τις εξετάσεις σου εδώ", type=["pdf", "png", "jpg"])
     if uploaded_file:
@@ -183,7 +182,7 @@ with tab4:
     if st.button("Καταγραφή Δραστηριότητας"):
         st.success("Όλα τα δεδομένα άσκησης και ενυδάτωσης αποθηκεύτηκαν.")
     
-    st.divider()
+    st.write("---")
     st.subheader("Επόμενο Ραντεβού")
     appointment = st.date_input("Ημερομηνία επανεξέτασης:", datetime.date.today() + datetime.timedelta(days=60))
     days_to_go = (appointment - datetime.date.today()).days

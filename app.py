@@ -5,6 +5,12 @@ st.set_page_config(page_title="Ο Φάκελος Υγείας Μου", layout="c
 
 st.title("Το Πρόγραμμα Μου")
 
+# Η συνάρτηση που καθαρίζει τα ψώνια χωρίς να κρασάρει το app
+def clear_shopping_list():
+    for key in st.session_state.keys():
+        if key.startswith("shop_"):
+            st.session_state[key] = False
+
 diet_plan = {
     "Monday": {
         "Πρωινό": "Βρώμη με γάλα αμυγδάλου",
@@ -143,11 +149,7 @@ with tab2:
             st.rerun()
 
     st.write("")
-    if st.button("Καθαρισμός τικ (για νέα αγορά)"):
-        for key in st.session_state.keys():
-            if key.startswith("shop_"):
-                st.session_state[key] = False
-        st.rerun()
+    st.button("Καθαρισμός τικ (για νέα αγορά)", on_click=clear_shopping_list)
 
 with tab3:
     st.subheader("Ζωτικές Μετρήσεις")

@@ -5,115 +5,120 @@ st.set_page_config(page_title="Η Διατροφή Μου", layout="centered")
 
 st.title("Το Πρόγραμμα Μου")
 
+# Το πλήρες πλάνο της εβδομάδας
 diet_plan = {
     "Monday": {
-        "Πρωινό": {"βασικό": "Βρώμη με γάλα αμυγδάλου", "εναλλακτική": "1 φέτα ψωμί ολικής με ταχίνι"},
-        "Μεσημεριανό": {"βασικό": "Στήθος κοτόπουλο με σαλάτα", "εναλλακτική": "Μπιφτέκια γαλοπούλας με σαλάτα"},
-        "Απογευματινό": {"βασικό": "1 μήλο", "εναλλακτική": "1 αχλάδι"},
-        "Βραδινό": {"βασικό": "Σαλάτα με 1 αυγό βραστό", "εναλλακτική": "Τοστ με τυρί χαμηλών λιπαρών"}
+        "Πρωινό": "Βρώμη με γάλα αμυγδάλου",
+        "Μεσημεριανό": "Στήθος κοτόπουλο με σαλάτα",
+        "Απογευματινό": "1 μήλο",
+        "Βραδινό": "Σαλάτα με 1 αυγό βραστό"
     },
     "Tuesday": {
-        "Πρωινό": {"βασικό": "2 φρυγανιές ολικής με μέλι", "εναλλακτική": "Γιαούρτι με κανέλα"},
-        "Μεσημεριανό": {"βασικό": "Ψάρι ψητό με χόρτα", "εναλλακτική": "Σολομός με μπρόκολο"},
-        "Απογευματινό": {"βασικό": "Λίγα αμύγδαλα", "εναλλακτική": "Λίγα καρύδια"},
-        "Βραδινό": {"βασικό": "Γιαούρτι με χαμηλά λιπαρά", "εναλλακτική": "1 ποτήρι κεφίρ"}
+        "Πρωινό": "2 φρυγανιές ολικής με μέλι",
+        "Μεσημεριανό": "Ψάρι ψητό με χόρτα",
+        "Απογευματινό": "Λίγα αμύγδαλα",
+        "Βραδινό": "Γιαούρτι με χαμηλά λιπαρά"
     },
     "Wednesday": {
-        "Πρωινό": {"βασικό": "Βρώμη με γάλα αμυγδάλου", "εναλλακτική": "1 φέτα ψωμί ολικής με ταχίνι"},
-        "Μεσημεριανό": {"βασικό": "Φακές με σαλάτα", "εναλλακτική": "Φασόλια γίγαντες"},
-        "Απογευματινό": {"βασικό": "1 πορτοκάλι", "εναλλακτική": "1 ακτινίδιο"},
-        "Βραδινό": {"βασικό": "Σαλάτα εποχής", "εναλλακτική": "Κρητικός ντάκος χωρίς λάδι"}
+        "Πρωινό": "Βρώμη με γάλα αμυγδάλου",
+        "Μεσημεριανό": "Φακές με σαλάτα",
+        "Απογευματινό": "1 πορτοκάλι",
+        "Βραδινό": "Σαλάτα εποχής"
     },
     "Thursday": {
-        "Πρωινό": {"βασικό": "2 φρυγανιές ολικής με μέλι", "εναλλακτική": "Γιαούρτι με κανέλα"},
-        "Μεσημεριανό": {"βασικό": "Μακαρόνια ολικής με σάλτσα ντομάτας", "εναλλακτική": "Ρύζι καστανό με μανιτάρια"},
-        "Απογευματινό": {"βασικό": "Λίγα αμύγδαλα", "εναλλακτική": "Λίγα καρύδια"},
-        "Βραδινό": {"βασικό": "Γιαούρτι με χαμηλά λιπαρά", "εναλλακτική": "1 ποτήρι κεφίρ"}
+        "Πρωινό": "2 φρυγανιές ολικής με μέλι",
+        "Μεσημεριανό": "Μακαρόνια ολικής με σάλτσα ντομάτας",
+        "Απογευματινό": "Λίγα αμύγδαλα",
+        "Βραδινό": "Γιαούρτι με χαμηλά λιπαρά"
     },
     "Friday": {
-        "Πρωινό": {"βασικό": "Βρώμη με γάλα αμυγδάλου", "εναλλακτική": "1 φέτα ψωμί ολικής με ταχίνι"},
-        "Μεσημεριανό": {"βασικό": "Μπιφτέκια μοσχαρίσια με σαλάτα", "εναλλακτική": "Μοσχάρι βραστό"},
-        "Απογευματινό": {"βασικό": "1 μήλο", "εναλλακτική": "1 αχλάδι"},
-        "Βραδινό": {"βασικό": "Σαλάτα με 1 αυγό βραστό", "εναλλακτική": "Τοστ με τυρί χαμηλών λιπαρών"}
+        "Πρωινό": "Βρώμη με γάλα αμυγδάλου",
+        "Μεσημεριανό": "Μπιφτέκια μοσχαρίσια με σαλάτα",
+        "Απογευματινό": "1 μήλο",
+        "Βραδινό": "Σαλάτα με 1 αυγό βραστό"
     },
     "Saturday": {
-        "Πρωινό": {"βασικό": "2 φρυγανιές ολικής με μέλι", "εναλλακτική": "Γιαούρτι με κανέλα"},
-        "Μεσημεριανό": {"βασικό": "Ψάρι ψητό με χόρτα", "εναλλακτική": "Σολομός με μπρόκολο"},
-        "Απογευματινό": {"βασικό": "Λίγα αμύγδαλα", "εναλλακτική": "Λίγα καρύδια"},
-        "Βραδινό": {"βασικό": "Γιαούρτι με χαμηλά λιπαρά", "εναλλακτική": "1 ποτήρι κεφίρ"}
+        "Πρωινό": "2 φρυγανιές ολικής με μέλι",
+        "Μεσημεριανό": "Ψάρι ψητό με χόρτα",
+        "Απογευματινό": "Λίγα αμύγδαλα",
+        "Βραδινό": "Γιαούρτι με χαμηλά λιπαρά"
     },
     "Sunday": {
-        "Πρωινό": {"βασικό": "Βρώμη με γάλα αμυγδάλου", "εναλλακτική": "1 φέτα ψωμί ολικής με ταχίνι"},
-        "Μεσημεριανό": {"βασικό": "Κοτόπουλο στον φούρνο με πατάτες", "εναλλακτική": "Κοτόπουλο με ρύζι"},
-        "Απογευματινό": {"βασικό": "1 πορτοκάλι", "εναλλακτική": "1 ακτινίδιο"},
-        "Βραδινό": {"βασικό": "Σαλάτα εποχής", "εναλλακτική": "Κρητικός ντάκος χωρίς λάδι"}
+        "Πρωινό": "Βρώμη με γάλα αμυγδάλου",
+        "Μεσημεριανό": "Κοτόπουλο στον φούρνο με πατάτες",
+        "Απογευματινό": "1 πορτοκάλι",
+        "Βραδινό": "Σαλάτα εποχής"
     }
 }
 
-# Αποθήκευση καταστάσεων και λεπτομερειών
-if "meal_status" not in st.session_state:
-    st.session_state.meal_status = {}
-if "meal_details" not in st.session_state:
-    st.session_state.meal_details = {}
-
-selected_date = st.date_input("Επίλεξε ημερομηνία:", datetime.date.today())
-day_name = selected_date.strftime("%A")
 days_map = {
     "Monday": "Δευτέρα", "Tuesday": "Τρίτη", "Wednesday": "Τετάρτη",
     "Thursday": "Πέμπτη", "Friday": "Παρασκευή", "Saturday": "Σάββατο", "Sunday": "Κυριακή"
 }
 
-st.subheader(f"Πρόγραμμα για {days_map[day_name]} {selected_date.strftime('%d/%m/%Y')}")
+# Αποθήκευση δεδομένων στη μνήμη
+if "meal_status" not in st.session_state:
+    st.session_state.meal_status = {}
+if "missing_items" not in st.session_state:
+    st.session_state.missing_items = {}
 
-current_plan = diet_plan[day_name]
+tab1, tab2 = st.tabs(["Ημερήσια Καταγραφή", "Εβδομαδιαίο Πλάνο & Ψώνια"])
 
-for meal_time, meal_data in current_plan.items():
-    st.write(f"### {meal_time}")
-    st.write(f"Προτεινόμενο: {meal_data['βασικό']}")
+with tab1:
+    selected_date = st.date_input("Επίλεξε ημερομηνία:", datetime.date.today())
+    day_name = selected_date.strftime("%A")
     
-    with st.expander("Δες εναλλακτική"):
-        st.write(meal_data["εναλλακτική"])
+    st.subheader(f"Πρόγραμμα για {days_map[day_name]} {selected_date.strftime('%d/%m/%Y')}")
     
-    # Επιλογή κατάστασης γεύματος
-    status_key = f"status_{selected_date}_{meal_time}"
-    if status_key not in st.session_state.meal_status:
-        st.session_state.meal_status[status_key] = "Δεν καταγράφηκε"
+    current_plan = diet_plan[day_name]
+    
+    for meal_time, meal_desc in current_plan.items():
+        st.write(f"### {meal_time}")
+        st.write(meal_desc)
         
-    status_options = ["Δεν καταγράφηκε", "Κατά γράμμα", "Εναλλακτική επιλογή", "Παρασπονδία"]
-    
-    # Εύρεση τρέχουσας θέσης για το index
-    try:
-        current_index = status_options.index(st.session_state.meal_status[status_key])
-    except ValueError:
-        current_index = 0
+        status_key = f"status_{selected_date}_{meal_time}"
+        if status_key not in st.session_state.meal_status:
+            st.session_state.meal_status[status_key] = "Δεν καταγράφηκε"
+            
+        choice = st.radio(
+            f"Κατάσταση για το {meal_time.lower()}:",
+            ["Δεν καταγράφηκε", "Κατά γράμμα", "Εναλλακτική επιλογή", "Παρασπονδία"],
+            key=f"radio_{status_key}"
+        )
+        st.session_state.meal_status[status_key] = choice
+        st.divider()
 
-    choice = st.radio(
-        f"Πώς πήγε το {meal_time.lower()};",
-        status_options,
-        index=current_index,
-        key=f"radio_{status_key}"
-    )
-    st.session_state.meal_status[status_key] = choice
+with tab2:
+    st.subheader("Σύνοψη Εβδομάδας")
     
-    # Πεδίο λεπτομερειών αν δεν είναι κατά γράμμα
-    details_key = f"details_{selected_date}_{meal_time}"
-    if choice in ["Εναλλακτική επιλογή", "Παρασπονδία"]:
-        label = "Τι έφαγες ακριβώς;" if choice == "Παρασπονδία" else "Ποια εναλλακτική διάλεξες;"
-        current_val = st.session_state.meal_details.get(details_key, "")
-        detail_input = st.text_input(label, value=current_val, key=f"input_{details_key}")
-        st.session_state.meal_details[details_key] = detail_input
-
+    # Εμφάνιση όλων των ημερών
+    for eng_day, gr_day in days_map.items():
+        with st.expander(f"Πρόγραμμα για {gr_day}"):
+            for meal_time, meal_desc in diet_plan[eng_day].items():
+                st.write(f"{meal_time}: {meal_desc}")
+                
     st.divider()
+    
+    st.subheader("Λίστα για Ψώνια (Τι μου λείπει)")
+    st.write("Τσέκαρε όσα χρειάζεται να αγοράσεις:")
+    
+    # Λίστα με πιθανά είδη που θα χρειαστούν
+    shopping_items = [
+        "Γάλα αμυγδάλου", "Βρώμη", "Στήθος κοτόπουλο", "Φρέσκια σαλάτα / Λαχανικά",
+        "Μήλα", "Πορτοκάλια", "Αυγά", "Φρυγανιές ολικής", "Μέλι", "Ψάρι", 
+        "Χόρτα", "Αμύγδαλα / Καρύδια", "Γιαούρτι χαμηλών λιπαρών", "Φακές", 
+        "Μακαρόνια ολικής", "Σάλτσα ντομάτας", "Κοτόπουλο ολόκληρο", "Πατάτες"
+    ]
+    
+    for item in shopping_items:
+        # Χρήση session state για να μένουν τικαρισμένα τα ψώνια
+        if item not in st.session_state.missing_items:
+            st.session_state.missing_items[item] = False
+            
+        is_missing = st.checkbox(item, value=st.session_state.missing_items[item], key=f"shop_{item}")
+        st.session_state.missing_items[item] = is_missing
 
-st.subheader("Γενικές Σημειώσεις Ημέρας")
-if "general_notes" not in st.session_state:
-    st.session_state.general_notes = {}
-
-note_key = str(selected_date)
-general_note = st.text_area("Πώς ένιωσες σήμερα; Είχες πείνα ή κάποια ενόχληση;", 
-                            value=st.session_state.general_notes.get(note_key, ""),
-                            key=f"general_note_{note_key}")
-
-if st.button("Αποθήκευση Ημέρας"):
-    st.session_state.general_notes[note_key] = general_note
-    st.success("Οι πληροφορίες αποθηκεύτηκαν.")
+    if st.button("Καθαρισμός Λίστας"):
+        for item in shopping_items:
+            st.session_state.missing_items[item] = False
+        st.rerun()

@@ -1,7 +1,7 @@
 import streamlit as st
 import datetime
 
-st.set_page_config(page_title="Ο Φάκελος Υγείας Μου", layout="centered")
+st.set_page_config(page_title="My Diet Plan", layout="centered")
 
 st.title("Το Πρόγραμμα Μου")
 

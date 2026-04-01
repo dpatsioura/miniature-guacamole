@@ -190,15 +190,4 @@ with tab4:
     
     if st.button("Καταγραφή Δραστηριότητας"):
         st.success("Τα δεδομένα ενυδάτωσης και άσκησης καταγράφηκαν.")
-st.write("")
-water = st.slider("Ποτήρια νερό", 0, 15, 0)
-walking = st.number_input("Λεπτά περπάτημα", 0, 500, 0, step=10)
 
-if st.button("Καταγραφή Δραστηριότητας"):
-    st.success("Όλα τα δεδομένα άσκησης και ενυδάτωσης αποθηκεύτηκαν.")
-
-st.divider()
-st.subheader("Επόμενο Ραντεβού")
-appointment = st.date_input("Ημερομηνία επανεξέτασης:", datetime.date.today() + datetime.timedelta(days=60))
-days_to_go = (appointment - datetime.date.today()).days
-st.info(f"Σε {days_to_go} ημέρες θα ελέγξουμε ξανά την πρόοδό σου.")

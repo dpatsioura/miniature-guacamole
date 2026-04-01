@@ -1,15 +1,18 @@
 import streamlit as st
 import datetime
 
-st.set_page_config(page_title="My Health", layout="centered")
+# Προσθέσαμε το page_icon με το όνομα του αρχείου σου
+st.set_page_config(page_title="Ο Φάκελος Υγείας Μου", page_icon="favicon144.png", layout="centered")
 
-st.title("Το Πρόγραμμα Μου")
-
-# Η συνάρτηση που καθαρίζει τα ψώνια χωρίς να κρασάρει το app
 def clear_shopping_list():
     for key in st.session_state.keys():
         if key.startswith("shop_"):
             st.session_state[key] = False
+
+# Εμφανίζουμε το λογότυπο πάνω από τον τίτλο με πλάτος 80 pixels
+st.image("favicon144.png", width=80)
+
+st.title("Το Πρόγραμμα Μου")
 
 diet_plan = {
     "Monday": {

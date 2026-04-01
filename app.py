@@ -5,7 +5,6 @@ st.set_page_config(page_title="Η Διατροφή Μου", layout="centered")
 
 st.title("Το Πρόγραμμα Μου")
 
-# Το πλήρες πλάνο της εβδομάδας
 diet_plan = {
     "Monday": {
         "Πρωινό": "Βρώμη με γάλα αμυγδάλου",
@@ -56,11 +55,14 @@ days_map = {
     "Thursday": "Πέμπτη", "Friday": "Παρασκευή", "Saturday": "Σάββατο", "Sunday": "Κυριακή"
 }
 
-# Αποθήκευση δεδομένων στη μνήμη
 if "meal_status" not in st.session_state:
     st.session_state.meal_status = {}
+if "meal_details" not in st.session_state:
+    st.session_state.meal_details = {}
 if "missing_items" not in st.session_state:
     st.session_state.missing_items = {}
+if "custom_items" not in st.session_state:
+    st.session_state.custom_items = []
 
 tab1, tab2 = st.tabs(["Ημερήσια Καταγραφή", "Εβδομαδιαίο Πλάνο & Ψώνια"])
 
@@ -86,12 +88,19 @@ with tab1:
             key=f"radio_{status_key}"
         )
         st.session_state.meal_status[status_key] = choice
+        
+        details_key = f"details_{selected_date}_{meal_time}"
+        if choice in ["Εναλλακτική επιλογή", "Παρασπονδία"]:
+            label = "Τι έφαγες ακριβώς;" if choice == "Παρασπονδία" else "Ποια εναλλακτική διάλεξες;"
+            current_val = st.session_state.meal_details.get(details_key, "")
+            detail_input = st.text_input(label, value=current_val, key=f"input_{details_key}")
+            st.session_state.meal_details[details_key] = detail_input
+
         st.divider()
 
 with tab2:
     st.subheader("Σύνοψη Εβδομάδας")
     
-    # Εμφάνιση όλων των ημερών
     for eng_day, gr_day in days_map.items():
         with st.expander(f"Πρόγραμμα για {gr_day}"):
             for meal_time, meal_desc in diet_plan[eng_day].items():
@@ -99,26 +108,35 @@ with tab2:
                 
     st.divider()
     
-    st.subheader("Λίστα για Ψώνια (Τι μου λείπει)")
+    st.subheader("Λίστα για Ψώνια")
     st.write("Τσέκαρε όσα χρειάζεται να αγοράσεις:")
     
-    # Λίστα με πιθανά είδη που θα χρειαστούν
-    shopping_items = [
+    base_shopping_items = [
         "Γάλα αμυγδάλου", "Βρώμη", "Στήθος κοτόπουλο", "Φρέσκια σαλάτα / Λαχανικά",
         "Μήλα", "Πορτοκάλια", "Αυγά", "Φρυγανιές ολικής", "Μέλι", "Ψάρι", 
         "Χόρτα", "Αμύγδαλα / Καρύδια", "Γιαούρτι χαμηλών λιπαρών", "Φακές", 
         "Μακαρόνια ολικής", "Σάλτσα ντομάτας", "Κοτόπουλο ολόκληρο", "Πατάτες"
     ]
     
-    for item in shopping_items:
-        # Χρήση session state για να μένουν τικαρισμένα τα ψώνια
+    all_shopping_items = base_shopping_items + st.session_state.custom_items
+    
+    for item in all_shopping_items:
         if item not in st.session_state.missing_items:
             st.session_state.missing_items[item] = False
             
         is_missing = st.checkbox(item, value=st.session_state.missing_items[item], key=f"shop_{item}")
         st.session_state.missing_items[item] = is_missing
 
-    if st.button("Καθαρισμός Λίστας"):
-        for item in shopping_items:
+    st.write("")
+    new_item = st.text_input("Πρόσθεσε νέο προϊόν στη λίστα:")
+    if st.button("Προσθήκη στη λίστα"):
+        if new_item and new_item not in all_shopping_items:
+            st.session_state.custom_items.append(new_item)
+            st.session_state.missing_items[new_item] = False
+            st.rerun()
+
+    st.write("")
+    if st.button("Καθαρισμός τικ (για νέα αγορά)"):
+        for item in all_shopping_items:
             st.session_state.missing_items[item] = False
         st.rerun()

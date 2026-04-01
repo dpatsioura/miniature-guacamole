@@ -50,57 +50,70 @@ diet_plan = {
     }
 }
 
-if "checked_meals" not in st.session_state:
-    st.session_state.checked_meals = {}
-if "all_notes" not in st.session_state:
-    st.session_state.all_notes = {}
+# Αποθήκευση καταστάσεων και λεπτομερειών
+if "meal_status" not in st.session_state:
+    st.session_state.meal_status = {}
+if "meal_details" not in st.session_state:
+    st.session_state.meal_details = {}
 
-tab1, tab2 = st.tabs(["Ημερήσιο Πλάνο & Σημειώσεις", "Λίστα Ψωνίων"])
+selected_date = st.date_input("Επίλεξε ημερομηνία:", datetime.date.today())
+day_name = selected_date.strftime("%A")
+days_map = {
+    "Monday": "Δευτέρα", "Tuesday": "Τρίτη", "Wednesday": "Τετάρτη",
+    "Thursday": "Πέμπτη", "Friday": "Παρασκευή", "Saturday": "Σάββατο", "Sunday": "Κυριακή"
+}
 
-with tab1:
-    selected_date = st.date_input("Επίλεξε ημερομηνία:", datetime.date.today())
-    day_name = selected_date.strftime("%A")
+st.subheader(f"Πρόγραμμα για {days_map[day_name]} {selected_date.strftime('%d/%m/%Y')}")
+
+current_plan = diet_plan[day_name]
+
+for meal_time, meal_data in current_plan.items():
+    st.write(f"### {meal_time}")
+    st.write(f"Προτεινόμενο: {meal_data['βασικό']}")
     
-    days_map = {
-        "Monday": "Δευτέρα", "Tuesday": "Τρίτη", "Wednesday": "Τετάρτη",
-        "Thursday": "Πέμπτη", "Friday": "Παρασκευή", "Saturday": "Σάββατο", "Sunday": "Κυριακή"
-    }
+    with st.expander("Δες εναλλακτική"):
+        st.write(meal_data["εναλλακτική"])
     
-    st.subheader(f"Πλάνο για {days_map[day_name]} {selected_date.strftime('%d/%m/%Y')}")
-    
-    current_plan = diet_plan[day_name]
-    
-    for meal_time, meal_data in current_plan.items():
-        key = f"{selected_date}_{meal_time}"
+    # Επιλογή κατάστασης γεύματος
+    status_key = f"status_{selected_date}_{meal_time}"
+    if status_key not in st.session_state.meal_status:
+        st.session_state.meal_status[status_key] = "Δεν καταγράφηκε"
         
-        if key not in st.session_state.checked_meals:
-            st.session_state.checked_meals[key] = False
-            
-        is_checked = st.checkbox(f"{meal_time}: {meal_data['βασικό']}", value=st.session_state.checked_meals[key], key=f"check_{key}")
-        st.session_state.checked_meals[key] = is_checked
-        
-        with st.expander("Εναλλακτική επιλογή"):
-            st.write(meal_data["εναλλακτική"])
+    status_options = ["Δεν καταγράφηκε", "Κατά γράμμα", "Εναλλακτική επιλογή", "Παρασπονδία"]
+    
+    # Εύρεση τρέχουσας θέσης για το index
+    try:
+        current_index = status_options.index(st.session_state.meal_status[status_key])
+    except ValueError:
+        current_index = 0
+
+    choice = st.radio(
+        f"Πώς πήγε το {meal_time.lower()};",
+        status_options,
+        index=current_index,
+        key=f"radio_{status_key}"
+    )
+    st.session_state.meal_status[status_key] = choice
+    
+    # Πεδίο λεπτομερειών αν δεν είναι κατά γράμμα
+    details_key = f"details_{selected_date}_{meal_time}"
+    if choice in ["Εναλλακτική επιλογή", "Παρασπονδία"]:
+        label = "Τι έφαγες ακριβώς;" if choice == "Παρασπονδία" else "Ποια εναλλακτική διάλεξες;"
+        current_val = st.session_state.meal_details.get(details_key, "")
+        detail_input = st.text_input(label, value=current_val, key=f"input_{details_key}")
+        st.session_state.meal_details[details_key] = detail_input
 
     st.divider()
-    
-    st.subheader("Σημειώσεις Ημέρας")
-    note_key = str(selected_date)
-    current_note = st.session_state.all_notes.get(note_key, "")
-    
-    new_note = st.text_area("Γράψε πώς πήγε η μέρα σου ή αν έφαγες κάτι άλλο:", value=current_note, key=f"note_area_{note_key}")
-    
-    if st.button("Αποθήκευση Σημείωσης", key=f"btn_{note_key}"):
-        st.session_state.all_notes[note_key] = new_note
-        st.success("Η σημείωση αποθηκεύτηκε για αυτή την ημερομηνία.")
 
-with tab2:
-    st.subheader("Συνολική Λίστα Ψωνίων")
-    all_ingredients = [
-        "Γάλα αμυγδάλου", "Βρώμη", "Στήθος κοτόπουλο", "Λαχανικά για σαλάτα",
-        "Μήλα", "Αυγά", "Φρυγανιές ολικής", "Μέλι", "Ψάρι", "Χόρτα",
-        "Αμύγδαλα", "Γιαούρτι χαμηλών λιπαρών", "Φακές", "Μακαρόνια ολικής",
-        "Σάλτσα ντομάτας", "Πορτοκάλια"
-    ]
-    for item in all_ingredients:
-        st.checkbox(item, key=f"list_{item}")
+st.subheader("Γενικές Σημειώσεις Ημέρας")
+if "general_notes" not in st.session_state:
+    st.session_state.general_notes = {}
+
+note_key = str(selected_date)
+general_note = st.text_area("Πώς ένιωσες σήμερα; Είχες πείνα ή κάποια ενόχληση;", 
+                            value=st.session_state.general_notes.get(note_key, ""),
+                            key=f"general_note_{note_key}")
+
+if st.button("Αποθήκευση Ημέρας"):
+    st.session_state.general_notes[note_key] = general_note
+    st.success("Οι πληροφορίες αποθηκεύτηκαν.")

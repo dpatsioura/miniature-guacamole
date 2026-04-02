@@ -1,7 +1,38 @@
 import streamlit as st
 import datetime
+import json
+import os
 
 st.set_page_config(page_title="Ο Φάκελος Υγείας Μου", page_icon="favicon144.png", layout="centered")
+
+DATA_FILE = "health_data.json"
+
+def load_data():
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+saved_data = load_data()
+
+if "menu_assignments" not in st.session_state:
+    st.session_state.menu_assignments = saved_data.get("menu_assignments", {})
+if "meal_status" not in st.session_state:
+    st.session_state.meal_status = saved_data.get("meal_status", {})
+if "meal_details" not in st.session_state:
+    st.session_state.meal_details = saved_data.get("meal_details", {})
+if "custom_items" not in st.session_state:
+    st.session_state.custom_items = saved_data.get("custom_items", [])
+if "daily_mood" not in st.session_state:
+    st.session_state.daily_mood = saved_data.get("daily_mood", {})
+if "medications" not in st.session_state:
+    st.session_state.medications = saved_data.get("medications", [])
+if "prescriptions" not in st.session_state:
+    st.session_state.prescriptions = saved_data.get("prescriptions", [])
+if "measurements" not in st.session_state:
+    st.session_state.measurements = saved_data.get("measurements", {})
+if "activities" not in st.session_state:
+    st.session_state.activities = saved_data.get("activities", {})
 
 def clear_shopping_list():
     for key in st.session_state.keys():
@@ -11,7 +42,6 @@ def clear_shopping_list():
 st.image("favicon144.png", width=80)
 st.title("Το Πρόγραμμα Μου")
 
-# Τα γεύματα πλέον είναι ανεξάρτητα μενού
 diet_plan = {
     "Μενού 1 (Φακές & Σνίτσελ)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
@@ -57,28 +87,12 @@ diet_plan = {
     }
 }
 
-if "menu_assignments" not in st.session_state:
-    st.session_state.menu_assignments = {}
-if "meal_status" not in st.session_state:
-    st.session_state.meal_status = {}
-if "meal_details" not in st.session_state:
-    st.session_state.meal_details = {}
-if "custom_items" not in st.session_state:
-    st.session_state.custom_items = []
-if "daily_mood" not in st.session_state:
-    st.session_state.daily_mood = {}
-if "medications" not in st.session_state:
-    st.session_state.medications = []
-if "prescriptions" not in st.session_state:
-    st.session_state.prescriptions = []
-
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Ημέρα", "Εβδομάδα & Ψώνια", "Μετρήσεις", "Δραστηριότητα", "Φάρμακα & Συνταγές"])
 
 with tab1:
     selected_date = st.date_input("Επίλεξε ημερομηνία:", datetime.date.today())
     date_str = str(selected_date)
     
-    # Βρίσκουμε τις ημέρες της εβδομάδας για να κρύψουμε τα μενού που ήδη έκανες
     start_of_week = selected_date - datetime.timedelta(days=selected_date.weekday())
     week_dates_str = [str(start_of_week + datetime.timedelta(days=i)) for i in range(7)]
     
@@ -185,12 +199,20 @@ with tab3:
         diastolic = st.number_input("Διαστολική Πίεση", 40, 130, 80)
         cholesterol = st.number_input("Ολική Χοληστερίνη", 100, 500, 240)
     if st.button("Αποθήκευση Μετρήσεων"):
+        today_str = str(datetime.date.today())
+        st.session_state.measurements[today_str] = {
+            "weight": weight,
+            "systolic": systolic,
+            "diastolic": diastolic,
+            "cholesterol": cholesterol
+        }
         st.success("Οι μετρήσεις αποθηκεύτηκαν.")
-    st.divider()
-    st.subheader("Αρχείο Εξετάσεων")
-    uploaded_file = st.file_uploader("Φόρτωσε τις εξετάσεις σου εδώ", type=["pdf", "png", "jpg"])
-    if uploaded_file:
-        st.success("Το αρχείο ανέβηκε.")
+        
+    if st.session_state.measurements:
+        st.divider()
+        st.subheader("Ιστορικό Μετρήσεων")
+        for d, m in st.session_state.measurements.items():
+            st.write(f"- {d}: Βάρος {m['weight']}kg, Πίεση {m['systolic']}/{m['diastolic']}, Χολ. {m['cholesterol']}")
 
 with tab4:
     st.subheader("Γυμναστήριο και Άσκηση")
@@ -201,17 +223,24 @@ with tab4:
     water = st.slider("Ποτήρια νερό", 0, 15, 0)
     walking = st.number_input("Λεπτά περπάτημα", 0, 500, 0, step=10)
     if st.button("Καταγραφή Δραστηριότητας"):
+        today_str = str(datetime.date.today())
+        st.session_state.activities[today_str] = {
+            "workout": workout_type,
+            "muscle": muscle_group if workout_type != "Καμία" else "",
+            "time": gym_time if workout_type != "Καμία" else 0,
+            "water": water,
+            "walking": walking
+        }
         st.success("Τα δεδομένα αποθηκεύτηκαν.")
-    st.divider()
-    st.subheader("Επόμενο Ραντεβού")
-    appointment = st.date_input("Ημερομηνία επανεξέτασης:", datetime.date.today() + datetime.timedelta(days=60))
-    days_to_go = (appointment - datetime.date.today()).days
-    if days_to_go > 0:
-        st.info(f"Σε {days_to_go} ημέρες θα ελέγξουμε ξανά την πρόοδό σου.")
-    elif days_to_go == 0:
-        st.warning("Το ραντεβού στον γιατρό είναι σήμερα.")
-    else:
-        st.write("Η ημερομηνία του ραντεβού έχει περάσει.")
+        
+    if st.session_state.activities:
+        st.divider()
+        st.subheader("Ιστορικό Δραστηριότητας")
+        for d, a in st.session_state.activities.items():
+            details = f"Νερό: {a['water']} ποτήρια, Περπάτημα: {a['walking']} λεπτά"
+            if a['workout'] != "Καμία":
+                details += f", Προπόνηση: {a['workout']} ({a['muscle']}) για {a['time']} λεπτά"
+            st.write(f"- {d}: {details}")
 
 with tab5:
     st.subheader("Φαρμακευτική Αγωγή")
@@ -237,7 +266,7 @@ with tab5:
             new_plan = []
             for i in range(6):
                 next_date = start_presc + datetime.timedelta(days=i*30)
-                new_plan.append(next_date)
+                new_plan.append(next_date.strftime("%Y-%m-%d"))
             st.session_state.prescriptions.append({"name": presc_name, "dates": new_plan})
             st.success("Το εξάμηνο πλάνο δημιουργήθηκε.")
 
@@ -245,9 +274,27 @@ with tab5:
         today = datetime.date.today()
         for p in st.session_state.prescriptions:
             st.write(f"### Συνταγές για: {p['name']}")
-            for d in p['dates']:
-                diff = (d - today).days
+            for d_str in p['dates']:
+                d_obj = datetime.datetime.strptime(d_str, "%Y-%m-%d").date()
+                diff = (d_obj - today).days
                 if 0 <= diff <= 5:
-                    st.warning(f"ΠΡΟΣΟΧΗ: Εκτέλεση συνταγής στις {d.strftime('%d/%m/%Y')} (σε {diff} μέρες)")
+                    st.warning(f"ΠΡΟΣΟΧΗ: Εκτέλεση συνταγής στις {d_str} (σε {diff} μέρες)")
                 else:
-                    st.write(f"- Ημερομηνία: {d.strftime('%d/%m/%Y')}")
+                    st.write(f"- Ημερομηνία: {d_str}")
+
+def save_data():
+    data_to_save = {
+        "menu_assignments": st.session_state.menu_assignments,
+        "meal_status": st.session_state.meal_status,
+        "meal_details": st.session_state.meal_details,
+        "custom_items": st.session_state.custom_items,
+        "daily_mood": st.session_state.daily_mood,
+        "medications": st.session_state.medications,
+        "prescriptions": st.session_state.prescriptions,
+        "measurements": st.session_state.measurements,
+        "activities": st.session_state.activities
+    }
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(data_to_save, f, ensure_ascii=False, indent=4)
+
+save_data()

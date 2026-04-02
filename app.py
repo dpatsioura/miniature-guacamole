@@ -11,56 +11,54 @@ def clear_shopping_list():
 st.image("favicon144.png", width=80)
 st.title("Το Πρόγραμμα Μου")
 
+# Τα γεύματα πλέον είναι ανεξάρτητα μενού
 diet_plan = {
-    "Monday": {
+    "Μενού 1 (Φακές & Σνίτσελ)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
-        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 1 φλ. φακές/ρεβίθια/φασόλια μαγειρεμένα (ζουμί όσο θέλετε)\n* 90γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
+        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 1 φλ. φακές/ρεβίθια/φασόλια μαγειρεμένα\n* 90γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
         "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 180γρ σνίτσελ κοτόπουλο φούρνου\n* 60γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο"
     },
-    "Tuesday": {
+    "Μενού 2 (Κοτόπουλο 1)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
-        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες μεγέθους αυγού η κάθε μία\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
-        "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες μεγέθους αυγού η κάθε μία\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο"
+        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
+        "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο"
     },
-    "Wednesday": {
+    "Μενού 3 (Μακαρόνια & Τόνος)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
         "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 1,5 φλ. μακαρόνια μαγειρεμένα\n* 8 κομματάκια τυρί χαμηλών λιπαρών ή 1 μεγάλο κεσεδάκι κονσέρβα τόνο σε νερό\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
         "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 1,5 φλ. μακαρόνια μαγειρεμένα\n* 8 κομματάκια τυρί χαμηλών λιπαρών ή 1 μεγάλο κεσεδάκι κονσέρβα τόνο σε νερό\n* 4 κγ ελαιόλαδο"
     },
-    "Thursday": {
+    "Μενού 4 (Κοτόπουλο 2)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
-        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες μεγέθους αυγού η κάθε μία\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
-        "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες μεγέθους αυγού η κάθε μία\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο"
+        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
+        "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κοτόπουλο χωρίς δέρμα\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες\n* 30γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο"
     },
-    "Friday": {
+    "Μενού 5 (Φασολάκια & Ομελέτα)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
         "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 1,5 φλ. φασολάκια ή αρακά μαγειρεμένο\n* 90γρ τυρί λευκό χαμηλών λιπαρών\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
         "Βραδινό": "Ομελέτα:\n* 4 αυγά (τον ένα κρόκο)\n* 90γρ τυρί λευκό χαμηλών λιπαρών\n* 1 τμχ πιπεριά\n* 1 ντομάτα\n* 3 μανιτάρια μεγάλα\n* 1 κσ ελαιόλαδο"
     },
-    "Saturday": {
+    "Μενού 6 (Ψάρι & Τυλιχτό)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
         "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 300γρ σαρδέλες/γαύρο φούρνου ή 330γρ τσιπούρα χωρίς δέρμα\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
         "Βραδινό": "Τυλιχτό:\n* 1 τορτίγια μετρίου μεγέθους\n* 3 φέτες κίτρινο τυρί χαμηλών λιπαρών\n* 4 κγ τυρί κρέμα light\n* 2 φλ. λαχανικά νωπά"
     },
-    "Sunday": {
+    "Μενού 7 (Μπιφτέκια)": {
         "Πρωινό": "* Σταθερό πρωινό (σύμφωνα με τις γενικές οδηγίες)",
-        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κιμά σε μπιφτέκια (χοιρινό ή μοσχαρίσιο)\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες μεγέθους αυγού η κάθε μία\n* 4 κγ ελαιόλαδο",
-        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ (ακόμη και με γεύσεις)",
-        "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κιμά σε μπιφτέκια (χοιρινό ή μοσχαρίσιο)\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες μεγέθους αυγού η κάθε μία\n* 4 κγ ελαιόλαδο"
+        "Μεσημεριανό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κιμά σε μπιφτέκια (χοιρινό ή μοσχαρίσιο)\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες\n* 4 κγ ελαιόλαδο",
+        "Απογευματινό": "* 3 φρούτα\n* 1 κεσεδάκι γιαούρτι 2% ή 1 φλ. κεφίρ",
+        "Βραδινό": "* 2 φλ. λαχανικά σαλάτα νωπή-φρέσκια\n* 150γρ κιμά σε μπιφτέκια (χοιρινό ή μοσχαρίσιο)\n* 1 φλ. ρύζι μαγειρεμένο ή 3 μικρές πατάτες\n* 4 κγ ελαιόλαδο"
     }
 }
 
-days_map = {
-    "Monday": "Δευτέρα", "Tuesday": "Τρίτη", "Wednesday": "Τετάρτη",
-    "Thursday": "Πέμπτη", "Friday": "Παρασκευή", "Saturday": "Σάββατο", "Sunday": "Κυριακή"
-}
-
+if "menu_assignments" not in st.session_state:
+    st.session_state.menu_assignments = {}
 if "meal_status" not in st.session_state:
     st.session_state.meal_status = {}
 if "meal_details" not in st.session_state:
@@ -74,43 +72,84 @@ if "medications" not in st.session_state:
 if "prescriptions" not in st.session_state:
     st.session_state.prescriptions = []
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["Ημέρα", "Ψώνια", "Μετρήσεις", "Δραστηριότητα", "Φάρμακα & Συνταγές"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Ημέρα", "Εβδομάδα & Ψώνια", "Μετρήσεις", "Δραστηριότητα", "Φάρμακα & Συνταγές"])
 
 with tab1:
     selected_date = st.date_input("Επίλεξε ημερομηνία:", datetime.date.today())
-    day_name = selected_date.strftime("%A")
-    st.subheader(f"Πρόγραμμα για {days_map[day_name]} {selected_date.strftime('%d/%m/%Y')}")
-    current_plan = diet_plan[day_name]
-    for meal_time, meal_desc in current_plan.items():
-        st.write(f"### {meal_time}")
-        st.write(meal_desc)
-        status_key = f"status_{selected_date}_{meal_time}"
-        if status_key not in st.session_state.meal_status:
-            st.session_state.meal_status[status_key] = "Δεν καταγράφηκε"
-        choice = st.radio(f"Κατάσταση για το {meal_time.lower()}:", ["Δεν καταγράφηκε", "Κατά γράμμα", "Εναλλακτική επιλογή", "Παρασπονδία"], key=f"radio_{status_key}")
-        st.session_state.meal_status[status_key] = choice
-        details_key = f"details_{selected_date}_{meal_time}"
-        if choice in ["Εναλλακτική επιλογή", "Παρασπονδία"]:
-            label = "Τι έφαγες ακριβώς;" if choice == "Παρασπονδία" else "Ποια εναλλακτική διάλεξες;"
-            current_val = st.session_state.meal_details.get(details_key, "")
-            detail_input = st.text_input(label, value=current_val, key=f"input_{details_key}")
-            st.session_state.meal_details[details_key] = detail_input
-        st.divider()
+    date_str = str(selected_date)
     
-    st.subheader("Σημειώσεις και Διάθεση")
-    mood_key = f"mood_{selected_date}"
-    current_mood = st.session_state.daily_mood.get(mood_key, "")
-    new_mood = st.text_area("Πώς ένιωσες σήμερα; Πώς πήγε η διατροφή γενικά;", value=current_mood, key=f"area_{mood_key}")
-    if st.button("Αποθήκευση Σημειώσεων", key=f"btn_mood_{mood_key}"):
-        st.session_state.daily_mood[mood_key] = new_mood
-        st.success("Οι πληροφορίες της ημέρας καταγράφηκαν.")
+    # Βρίσκουμε τις ημέρες της εβδομάδας για να κρύψουμε τα μενού που ήδη έκανες
+    start_of_week = selected_date - datetime.timedelta(days=selected_date.weekday())
+    week_dates_str = [str(start_of_week + datetime.timedelta(days=i)) for i in range(7)]
+    
+    used_menus = [st.session_state.menu_assignments[d] for d in week_dates_str if d in st.session_state.menu_assignments and d != date_str]
+    all_menus = list(diet_plan.keys())
+    available_menus = [m for m in all_menus if m not in used_menus]
+    
+    current_menu = st.session_state.menu_assignments.get(date_str, "Κανένα μενού")
+    
+    options = ["Κανένα μενού"] + available_menus
+    if current_menu in options:
+        default_idx = options.index(current_menu)
+    elif current_menu != "Κανένα μενού":
+        options = ["Κανένα μενού", current_menu] + available_menus
+        default_idx = 1
+    else:
+        default_idx = 0
+        
+    selected_menu = st.selectbox("Επίλεξε τι θα φας αυτή τη μέρα:", options, index=default_idx)
+    
+    if selected_menu != "Κανένα μενού":
+        st.session_state.menu_assignments[date_str] = selected_menu
+        st.subheader(f"Πρόγραμμα: {selected_menu}")
+        
+        for meal_time, meal_desc in diet_plan[selected_menu].items():
+            st.write(f"### {meal_time}")
+            st.write(meal_desc)
+            status_key = f"status_{date_str}_{meal_time}"
+            if status_key not in st.session_state.meal_status:
+                st.session_state.meal_status[status_key] = "Δεν καταγράφηκε"
+            choice = st.radio(f"Κατάσταση για το {meal_time.lower()}:", ["Δεν καταγράφηκε", "Κατά γράμμα", "Εναλλακτική επιλογή", "Παρασπονδία"], key=f"radio_{status_key}")
+            st.session_state.meal_status[status_key] = choice
+            details_key = f"details_{date_str}_{meal_time}"
+            if choice in ["Εναλλακτική επιλογή", "Παρασπονδία"]:
+                label = "Τι έφαγες ακριβώς;" if choice == "Παρασπονδία" else "Ποια εναλλακτική διάλεξες;"
+                current_val = st.session_state.meal_details.get(details_key, "")
+                detail_input = st.text_input(label, value=current_val, key=f"input_{details_key}")
+                st.session_state.meal_details[details_key] = detail_input
+            st.divider()
+            
+        st.subheader("Σημειώσεις και Διάθεση")
+        mood_key = f"mood_{date_str}"
+        current_mood = st.session_state.daily_mood.get(mood_key, "")
+        new_mood = st.text_area("Πώς ένιωσες σήμερα; Πώς πήγε η διατροφή γενικά;", value=current_mood, key=f"area_{mood_key}")
+        if st.button("Αποθήκευση Σημειώσεων", key=f"btn_mood_{mood_key}"):
+            st.session_state.daily_mood[mood_key] = new_mood
+            st.success("Οι πληροφορίες της ημέρας καταγράφηκαν.")
+    else:
+        if date_str in st.session_state.menu_assignments:
+            del st.session_state.menu_assignments[date_str]
+        st.info("Επίλεξε ένα μενού από τη λίστα για να δεις τα γεύματα. Τα μενού που έχεις ήδη κάνει αυτή την εβδομάδα αποκρύπτονται.")
 
 with tab2:
-    st.subheader("Σύνοψη Εβδομάδας")
-    for eng_day, gr_day in days_map.items():
-        with st.expander(f"Πρόγραμμα για {gr_day}"):
-            for meal_time, meal_desc in diet_plan[eng_day].items():
-                st.write(f"{meal_time}:\n{meal_desc}")
+    st.subheader("Πρόγραμμα Τρέχουσας Εβδομάδας")
+    days_gr = ["Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"]
+    view_date = datetime.date.today()
+    week_start = view_date - datetime.timedelta(days=view_date.weekday())
+    
+    for i in range(7):
+        curr_d = week_start + datetime.timedelta(days=i)
+        curr_d_str = str(curr_d)
+        d_name = days_gr[i]
+        assigned = st.session_state.menu_assignments.get(curr_d_str, "Κενό")
+        
+        with st.expander(f"{d_name} ({curr_d.strftime('%d/%m')}) : {assigned}"):
+            if assigned != "Κενό":
+                for meal_time, meal_desc in diet_plan[assigned].items():
+                    st.write(f"{meal_time}:\n{meal_desc}")
+            else:
+                st.write("Δεν έχεις ορίσει μενού για αυτή τη μέρα.")
+                
     st.divider()
     st.subheader("Λίστα για Ψώνια")
     
